@@ -1,350 +1,373 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Building a Fucking Deathstar</title>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <meta name="description" content="The galaxy's most ambitious DIY project.">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Operational Status: Under Construction">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #0a0a0f;
+      color: #e8e8e8;
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      font-family: 'Fredoka', sans-serif;
+      line-height: 1.6;
+      position: relative;
       overflow-x: hidden;
     }
-
-    .stars {
+    .deathstar-bg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120vw;
+      height: 120vw;
+      max-width: 1400px;
+      max-height: 1400px;
+      opacity: 0.04;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .fog-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 3s infinite;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
-    }
-
-    .container {
-      position: relative;
+      background: radial-gradient(ellipse at center, transparent 0%, #0a0a0f 70%);
       z-index: 1;
-      max-width: 800px;
+      pointer-events: none;
+    }
+    .container {
+      max-width: 900px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    header {
       text-align: center;
+      padding: 3rem 0;
+      border-bottom: 1px solid #1a1a2e;
+      margin-bottom: 3rem;
     }
-
-    .logo {
-      font-size: 4rem;
-      margin: 1rem 0;
-      animation: bounce 2s infinite;
+    .badge {
+      display: inline-block;
+      background: #1a1a2e;
+      color: #f59e0b;
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      border: 1px solid #2a2a3e;
     }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
     h1 {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
       font-weight: 700;
-      color: #fff;
-      text-shadow: 4px 4px 0 #ff6b6b, 8px 8px 0 rgba(0,0,0,0.1);
-      margin-bottom: 0.5rem;
+      color: #ffffff;
       line-height: 1.1;
-    }
-
-    .subtitle {
-      font-size: 1.5rem;
-      color: #ffe66d;
-      font-weight: 600;
-      margin-bottom: 2rem;
-      text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 30px;
-      padding: 2.5rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      margin: 2rem 0;
-    }
-
-    .progress-section {
-      margin: 2rem 0;
-    }
-
-    .progress-label {
-      font-size: 1.2rem;
-      color: #764ba2;
-      font-weight: 600;
       margin-bottom: 1rem;
     }
-
-    .progress-bar {
-      background: #e0e0e0;
-      border-radius: 50px;
-      height: 40px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 4px 6px rgba(0,0,0,0.1);
+    .subtitle {
+      font-size: 1.25rem;
+      color: #6b7280;
+      max-width: 500px;
+      margin: 0 auto;
     }
-
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+    .card {
+      background: rgba(17, 17, 24, 0.9);
+      border: 1px solid #1a1a2e;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .card:hover {
+      border-color: #2a2a3e;
+      transform: translateY(-2px);
+    }
+    .card.success { border-left: 3px solid #10b981; }
+    .card.warning { border-left: 3px solid #f59e0b; }
+    .card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+    .status-bar {
+      background: rgba(17, 17, 24, 0.9);
+      border: 1px solid #1a1a2e;
+      padding: 2rem;
+      margin: 2rem 0;
+      backdrop-filter: blur(10px);
+    }
+    .status-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .status-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .status-badge {
+      background: #1a1a2e;
+      color: #f59e0b;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .progress-container { margin-bottom: 1.5rem; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    .progress-track {
+      background: #1a1a2e;
+      height: 8px;
+      overflow: hidden;
+    }
     .progress-fill {
-      background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
       height: 100%;
       width: 17%;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 1rem;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      animation: fillUp 2s ease-out;
-      box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+      transition: width 2s ease;
     }
-
-    @keyframes fillUp {
-      from { width: 0; }
-      to { width: 17%; }
-    }
-
     .checklist {
-      text-align: left;
-      max-width: 500px;
-      margin: 2rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
-
     .checklist-item {
       display: flex;
       align-items: center;
-      padding: 0.8rem;
-      margin: 0.5rem 0;
-      background: #f8f9fa;
-      border-radius: 15px;
+      gap: 1rem;
+      padding: 0.75rem;
+      background: rgba(10, 10, 15, 0.8);
+      border: 1px solid #1a1a2e;
+    }
+    .check {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .check.done { color: #10b981; }
+    .check.pending { color: #4b5563; }
+    .checklist-item span:last-child {
+      color: #d1d5db;
+      font-size: 0.95rem;
+    }
+    .checklist-item.pending span:last-child { color: #6b7280; }
+    .cta-section {
+      text-align: center;
+      padding: 4rem 0;
+      border-top: 1px solid #1a1a2e;
+      margin-top: 3rem;
+    }
+    .cta-text {
+      color: #6b7280;
+      margin-bottom: 1.5rem;
       font-size: 1.1rem;
-      color: #555;
-      transition: transform 0.2s;
     }
-
-    .checklist-item:hover {
-      transform: translateX(5px);
-    }
-
-    .checklist-item.done {
-      background: #d4edda;
-      color: #155724;
-    }
-
-    .checklist-item.pending {
-      background: #fff3cd;
-      color: #856404;
-    }
-
-    .emoji {
-      font-size: 1.5rem;
-      margin-right: 1rem;
-    }
-
-    .fun-facts {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .fact {
-      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-      border-radius: 20px;
-      padding: 1.5rem 1rem;
-      color: #333;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-
-    .fact:hover {
-      transform: translateY(-5px) rotate(2deg);
-    }
-
-    .fact-emoji {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .fact-number {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #764ba2;
-      display: block;
-    }
-
-    .fact-label {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    .cta-button {
+    .btn {
       display: inline-block;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 1.2rem 3rem;
-      border-radius: 50px;
+      background: #ffffff;
+      color: #0a0a0f;
+      padding: 1rem 2.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
       text-decoration: none;
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-top: 2rem;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-      transition: all 0.3s;
       border: none;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
-
-    .cta-button:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+    .btn:hover {
+      background: #f59e0b;
+      color: #0a0a0f;
     }
-
-    .footer {
-      margin-top: 3rem;
-      color: rgba(255,255,255,0.8);
-      font-size: 0.9rem;
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: #4b5563;
+      font-size: 0.875rem;
+      border-top: 1px solid #1a1a2e;
     }
-
-    .footer a {
-      color: #ffe66d;
-      text-decoration: none;
+    .pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #f59e0b;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      animation: pulse 2s infinite;
     }
-
-    .peeker {
-      position: fixed;
-      bottom: -10px;
-      right: 20px;
-      font-size: 4rem;
-      animation: peek 3s ease-in-out infinite;
-      cursor: pointer;
-      z-index: 10;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.1); }
     }
-
-    @keyframes peek {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-
     @media (max-width: 600px) {
-      .card { padding: 1.5rem; }
-      .fun-facts { grid-template-columns: 1fr; }
+      .container { padding: 2rem 1rem; }
+      header { padding: 2rem 0; }
     }
   </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
+  <!-- Death Star Background SVG -->
+  <svg class="deathstar-bg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="sphereGrad" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" style="stop-color:#2a2a3e"/>
+        <stop offset="50%" style="stop-color:#1a1a2e"/>
+        <stop offset="100%" style="stop-color:#0a0a0f"/>
+      </radialGradient>
+      <filter id="blur">
+        <feGaussianBlur stdDeviation="2"/>
+      </filter>
+    </defs>
+    <!-- Main sphere -->
+    <circle cx="200" cy="200" r="180" fill="url(#sphereGrad)" stroke="#2a2a3e" stroke-width="1"/>
+    
+    <!-- Latitude lines -->
+    <ellipse cx="200" cy="200" rx="180" ry="60" fill="none" stroke="#1a1a2e" stroke-width="0.5" opacity="0.5"/>
+    <ellipse cx="200" cy="200" rx="180" ry="120" fill="none" stroke="#1a1a2e" stroke-width="0.5" opacity="0.5"/>
+    <ellipse cx="200" cy="200" rx="180" ry="30" fill="none" stroke="#1a1a2e" stroke-width="0.5" opacity="0.5"/>
+    
+    <!-- Longitude lines -->
+    <ellipse cx="200" cy="200" rx="60" ry="180" fill="none" stroke="#1a1a2e" stroke-width="0.5" opacity="0.5"/>
+    <ellipse cx="200" cy="200" rx="120" ry="180" fill="none" stroke="#1a1a2e" stroke-width="0.5" opacity="0.5"/>
+    <ellipse cx="200" cy="200" rx="30" ry="180" fill="none" stroke="#1a1a2e" stroke-width="0.5" opacity="0.5"/>
+    
+    <!-- Superlaser dish -->
+    <circle cx="120" cy="140" r="45" fill="#151520" stroke="#2a2a3e" stroke-width="1"/>
+    <circle cx="120" cy="140" r="35" fill="none" stroke="#1a1a2e" stroke-width="0.5" opacity="0.7"/>
+    <circle cx="120" cy="140" r="25" fill="none" stroke="#1a1a2e" stroke-width="0.5" opacity="0.7"/>
+    <circle cx="120" cy="140" r="15" fill="none" stroke="#1a1a2e" stroke-width="0.5" opacity="0.7"/>
+    <circle cx="120" cy="140" r="8" fill="#0f0f18"/>
+    
+    <!-- Surface details - panels -->
+    <rect x="220" y="100" width="40" height="25" fill="#13131f" stroke="#1a1a2e" stroke-width="0.3" opacity="0.6"/>
+    <rect x="270" y="120" width="35" height="30" fill="#13131f" stroke="#1a1a2e" stroke-width="0.3" opacity="0.6"/>
+    <rect x="250" y="180" width="45" height="20" fill="#13131f" stroke="#1a1a2e" stroke-width="0.3" opacity="0.6"/>
+    <rect x="280" y="220" width="30" height="35" fill="#13131f" stroke="#1a1a2e" stroke-width="0.3" opacity="0.6"/>
+    <rect x="230" y="260" width="50" height="25" fill="#13131f" stroke="#1a1a2e" stroke-width="0.3" opacity="0.6"/>
+    <rect x="180" y="280" width="40" height="30" fill="#13131f" stroke="#1a1a2e" stroke-width="0.3" opacity="0.6"/>
+    
+    <!-- Small surface details -->
+    <circle cx="260" cy="150" r="3" fill="#1a1a2e" opacity="0.5"/>
+    <circle cx="290" cy="200" r="4" fill="#1a1a2e" opacity="0.5"/>
+    <circle cx="240" cy="240" r="2" fill="#1a1a2e" opacity="0.5"/>
+    <circle cx="300" cy="260" r="3" fill="#1a1a2e" opacity="0.5"/>
+    <circle cx="200" cy="320" r="5" fill="#1a1a2e" opacity="0.5"/>
+    
+    <!-- Atmospheric glow -->
+    <circle cx="200" cy="200" r="185" fill="none" stroke="#2a2a3e" stroke-width="0.5" opacity="0.3" filter="url(#blur)"/>
+  </svg>
+  
+  <!-- Fog overlay -->
+  <div class="fog-overlay"></div>
 
   <div class="container">
-    <div class="logo">🚀</div>
-    
-    <h1>Building a Fucking Deathstar</h1>
-    <p class="subtitle">The galaxy's most ambitious DIY project ✨</p>
+    <header>
+      <div class="badge"><span class="pulse"></span>Operational Status: Under Construction</div>
+      <h1>Building a Fucking Deathstar</h1>
+      <p class="subtitle">The galaxy doesn't build itself. Someone's gotta do the paperwork.</p>
+    </header>
 
-    <div class="card">
-      <div class="progress-section">
-        <p class="progress-label">🚧 Construction Progress</p>
-        <div class="progress-bar">
-          <div class="progress-fill">17%</div>
+    <div class="grid">
+      <div class="card success">
+        <h3>Funding Secured</h3>
+        <p>The Empire's accountants finally approved the budget. Took 3 audit cycles.</p>
+      </div>
+      <div class="card success">
+        <h3>Materials Sourced</h3>
+        <p>Steel ordered. Estimated delivery: 3-5 business days (plus light speed).</p>
+      </div>
+      <div class="card warning">
+        <h3>Design Review</h3>
+        <p>Architects are still arguing about that exhaust port. It's fine.</p>
+      </div>
+      <div class="card warning">
+        <h3>Permits Pending</h3>
+        <p>OSHA has questions. So does the Galactic Environmental Agency.</p>
+      </div>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-header">
+        <h2>Construction Progress</h2>
+        <span class="status-badge">Phase 1</span>
+      </div>
+      <div class="progress-container">
+        <div class="progress-label">
+          <span>Overall Completion</span>
+          <span>17%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"></div>
         </div>
       </div>
-
       <div class="checklist">
-        <div class="checklist-item done">
-          <span class="emoji">✅</span>
-          <span>Secured funding (asked the Empire)</span>
+        <div class="checklist-item">
+          <div class="check done">✓</div>
+          <span>Complete feasibility study</span>
         </div>
-        <div class="checklist-item done">
-          <span class="emoji">✅</span>
-          <span>Ordered steel on Amazon</span>
+        <div class="checklist-item">
+          <div class="check done">✓</div>
+          <span>Secure funding from Empire</span>
         </div>
-        <div class="checklist-item done">
-          <span class="emoji">✅</span>
-          <span>Watched YouTube tutorials</span>
-        </div>
-        <div class="checklist-item pending">
-          <span class="emoji">🔄</span>
-          <span>Figure out that thermal exhaust port issue</span>
+        <div class="checklist-item">
+          <div class="check done">✓</div>
+          <span>Source construction materials</span>
         </div>
         <div class="checklist-item pending">
-          <span class="emoji">⏳</span>
-          <span>Paint it grey (looks better)</span>
+          <div class="check pending">○</div>
+          <span>Finalize architectural plans</span>
         </div>
         <div class="checklist-item pending">
-          <span class="emoji">⏳</span>
-          <span>Get permit from OSHA</span>
+          <div class="check pending">○</div>
+          <span>Obtain regulatory approvals</span>
         </div>
       </div>
     </div>
 
-    <div class="fun-facts">
-      <div class="fact">
-        <div class="fact-emoji">☕️</div>
-        <span class="fact-number">∞</span>
-        <span class="fact-label">Coffees consumed</span>
-      </div>
-      <div class="fact">
-        <div class="fact-emoji">👷</div>
-        <span class="fact-number">1</span>
-        <span class="fact-label">Overworked intern</span>
-      </div>
-      <div class="fact">
-        <div class="fact-emoji">🛠️</div>
-        <span class="fact-number">0</span>
-        <span class="fact-label">Instructions read</span>
-      </div>
+    <div class="cta-section">
+      <p class="cta-text">Want to see what's coming next?</p>
+      <button class="btn" onclick="alert('Building in progress. Check back soon.')">View Roadmap</button>
     </div>
 
-    <button class="cta-button" onclick="alert('🚀 Coming soon! We\'re still looking for the hex key set...')">
-      🌟 See The Plans
-    </button>
-
-    <div class="footer">
-      <p>Made with 💜 and questionable judgement</p>
-      <p>buildingafuckingdeathstar.com</p>
-    </div>
+    <footer>
+      <p>buildingafuckingdeathstar.com // Est. 2026</p>
+    </footer>
   </div>
-
-  <div class="peeker" onclick="alert('👋 Hi! I\'m just the safety inspector.')" title="Say hi!">👷‍♂️</div>
-
-  <script>
-    // Generate twinkling stars
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 50; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.width = Math.random() * 3 + 1 + 'px';
-      star.style.height = star.style.width;
-      star.style.animationDelay = Math.random() * 3 + 's';
-      starsContainer.appendChild(star);
-    }
-  </script>
 </body>
 </html>
